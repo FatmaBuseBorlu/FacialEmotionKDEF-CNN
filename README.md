@@ -1,93 +1,97 @@
-# 🎭 Emotion Recognition with CNN using the KDEF Dataset
+# 🎭 KDEF Veri Seti ile CNN Tabanlı Duygu Tanıma
 
-This project presents a deep learning-based solution to the problem of facial expression recognition using the **Karolinska Directed Emotional Faces (KDEF)** dataset. Seven basic human emotions (Happy, Sad, Angry, Disgusted, Surprised, Fearful, and Neutral) are classified with a convolutional neural network (CNN) trained from scratch.
+Bu proje, **Karolinska Directed Emotional Faces (KDEF)** veri setini kullanarak yüz ifadelerinin otomatik olarak tanınması için derin öğrenme tabanlı bir çözüm sunar. Yedi temel insan duygusu sınıflandırılmaktadır  
+
+Happy, Sad, Angry, Disgust, Surprise, Fear ve Neutral  
+
+Model, sıfırdan eğitilmiş bir evrişimsel sinir ağıdır (CNN).
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://buzyy-emotion-recognition-app.hf.space)
 
-> 🔬 This notebook was developed and executed using **Google Colab** for GPU acceleration and hosted on **GitHub**.  
-> 📎 Paper-based validation reference: *Goeleven et al., 2008* – [DOI:10.1080/02699930701626582](https://doi.org/10.1080/02699930701626582)
+> 🔬 Bu notebook, GPU hızlandırması için **Google Colab** üzerinde geliştirilmiş ve çalıştırılmış olup **GitHub** üzerinde barındırılmaktadır.  
+> 📎 Makale tabanlı doğrulama referansı: *Goeleven ve ark., 2008*  [DOI:10.1080/02699930701626582](https://doi.org/10.1080/02699930701626582)
 
 ---
 
-## 🧠 Dataset: KDEF – Scientifically Validated
+## 🧠 Veri Seti  KDEF Bilimsel Olarak Doğrulanmış
 
-The **Karolinska Directed Emotional Faces** database contains 490 high-quality color images of human facial expressions from 70 actors (35 female, 35 male). Each subject was photographed displaying 7 emotions from 5 different angles.
+**Karolinska Directed Emotional Faces** veri tabanı, 70 oyuncunun (35 kadın, 35 erkek) yüz ifadelerini içeren 490 adet yüksek kaliteli renkli görüntü bulundurur. Her birey 7 duyguyu 5 farklı açıdan sergileyecek şekilde fotoğraflanmıştır.
 
-✅ All expressions were validated for:
-- **Emotion recognition accuracy** (mean hit rate ≈ 72%)
-- **Perceived emotional intensity**
-- **Arousal level** based on SAM (Self-Assessment Manikin)
+✅ Tüm ifadeler şu açılardan doğrulanmıştır  
+- **Duygu tanıma doğruluğu** (ortalama doğru tanıma oranı yaklaşık yüzde 72)  
+- **Algılanan duygusal şiddet düzeyi**  
+- **Uyarılma düzeyi**  SAM (Self Assessment Manikin) temelli değerlendirme
 
-📌 In our project, we used the **frontal (A-series)** images and categorized them into 7 labels:
+📌 Bu projede **frontal (A serisi)** görüntüler kullanılmış ve şu 7 etiket altında toplanmıştır  
+
 `['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']`
 
 ---
 
-## 🧰 Technologies & Libraries
+## 🧰 Teknolojiler ve Kütüphaneler
 
 - Python 3.10  
-- TensorFlow & Keras  
-- OpenCV (for image loading and processing)  
-- Scikit-learn (for evaluation)  
-- Google Colab (training with GPU support)  
+- TensorFlow ve Keras  
+- OpenCV  görüntü yükleme ve işleme  
+- Scikit learn  değerlendirme metrikleri  
+- Google Colab  GPU destekli eğitim ortamı  
 
 ---
 
-## 🏗️ Project Pipeline
+## 🏗️ Proje Aşamaları
 
-1. **Dataset Preparation**
-   - Downloaded via `kagglehub`
-   - Images resized to `(96x96)` grayscale
-   - Data balancing applied for underrepresented classes
+1. **Veri Setinin Hazırlanması**  
+   - `kagglehub` üzerinden indirildi  
+   - Görüntüler `(96x96)` boyutuna yeniden ölçeklendi ve gri seviyeye dönüştürüldü  
+   - Az temsil edilen sınıflar için veri dengeleme uygulandı
 
-2. **Model Architecture**
-   - Custom CNN with `Conv2D`, `MaxPooling`, `Dropout`, `Dense`
-   - Regularization with dropout & early stopping
-   - Trained for 50 epochs (with ReduceLROnPlateau)
+2. **Model Mimarisi**  
+   - `Conv2D`, `MaxPooling`, `Dropout`, `Dense` katmanlarından oluşan özelleştirilmiş CNN  
+   - Dropout ve early stopping ile düzenlileştirme  
+   - 50 epoch boyunca eğitim  `ReduceLROnPlateau` ile öğrenme oranı dinamik olarak düşürüldü
 
-3. **Evaluation**
-   - Accuracy/Loss curves
-   - Confusion Matrix
-   - Classification Report
+3. **Değerlendirme**  
+   - Eğitim ve doğrulama için accuracy ve loss eğrileri  
+   - Confusion matrix  
+   - Classification report  precision, recall ve F1 skorları
 
-4. **Visualization**
-   - Test predictions with actual labels
-   - Emotion-based performance insights
+4. **Görselleştirme**  
+   - Test tahminleri ile gerçek etiketlerin karşılaştırılması  
+   - Duygu bazlı performans analizi
 
 ---
 
-## 📈 Model Results
+## 📈 Model Sonuçları
 
-- 🧪 **Training Accuracy:** ~95%  
-- 🧪 **Validation Accuracy:** ~88%  
-- 📉 Overfitting controlled with dropout & early stopping  
-- 📊 **Best performance:** Class "Happy" with F1-score > 0.90  
-- ⚠️ Misclassifications mostly occurred between “Fear” & “Surprise”
+- 🧪 **Eğitim doğruluğu** yaklaşık yüzde 95  
+- 🧪 **Doğrulama doğruluğu** yaklaşık yüzde 88  
+- 📉 Aşırı öğrenme dropout ve early stopping ile kontrol altında tutuldu  
+- 📊 **En iyi performans** Happy sınıfında, F1 skoru 0.90 üzeri  
+- ⚠️ En çok karışan sınıflar  Fear  Surprise ve Sad  Neutral
 
 ---
 
 ## 📊 Confusion Matrix
 
-The confusion matrix below illustrates the model's performance in classifying each emotion category.
+Aşağıdaki confusion matrix, modelin her duygu kategorisini ne kadar doğru sınıflandırdığını göstermektedir.
 
 ![Confusion Matrix](./docs/confusion_matrix.png)
 
-
-- Most correctly predicted class: **Happy**
-- Most confused classes: **Fear ↔ Surprise**, **Sad ↔ Neutral**
+- En yüksek doğrulukla tahmin edilen sınıf  **Happy**  
+- En çok karıştırılan sınıflar  **Fear ↔ Surprise** ve **Sad ↔ Neutral**
 
 ---
 
-## 🖼️ Example Predictions
+## 🖼️ Örnek Tahminler
 
-Below are randomly selected test samples, showing the actual vs predicted emotions:
+Aşağıdaki tablo, rastgele seçilmiş bazı test örnekleri için gerçek ve tahmin edilen duyguları göstermektedir.
 
 <table>
   <thead>
     <tr>
-      <th>Image</th>
-      <th>True Label</th>
-      <th>Predicted</th>
+      <th>Görüntü</th>
+      <th>Gerçek Etiket</th>
+      <th>Tahmin</th>
     </tr>
   </thead>
   <tbody>
@@ -119,35 +123,31 @@ Below are randomly selected test samples, showing the actual vs predicted emotio
   </tbody>
 </table>
 
-<sub>*(All examples were randomly selected and generated during model inference.)*</sub>
-
+<sub>*(Tüm örnekler, model çıkarımı sırasında rastgele seçilerek üretilmiştir.)*</sub>
 
 ---
 
-## 🚀 How to Run
+## 🚀 Nasıl Çalıştırılır
 
-You can run the entire project in **Google Colab** by clicking the badge below:
+Projeyi **Google Colab** üzerinde tamamen çalıştırmak için aşağıdaki rozete tıklayabilirsiniz  
 
 <a href="https://colab.research.google.com/github/FatmaBuseBorlu/KDEF/blob/main/KDEF.ipynb" target="_blank">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
 </a>
 
-> Kaggle API key setup is required to download the dataset from `kagglehub`.
+> Veri setini `kagglehub` üzerinden indirebilmek için Kaggle API anahtarı yapılandırılmalıdır.
 
 ---
 
-## 📎 References
+## 📎 Kaynaklar
 
-- Goeleven, E., De Raedt, R., Leyman, L., & Verschuere, B. (2008).  
-  *The Karolinska Directed Emotional Faces: A validation study*. Cognition & Emotion, 22(6), 1094-1118.  
-  [DOI: 10.1080/02699930701626582](https://doi.org/10.1080/02699930701626582)
-
----
-
-## 🪪 License
-
-This project is released under the [MIT License](./LICENSE).  
-KDEF image usage is subject to academic and non-commercial license. Contact [facialstimuli.com](http://www.facialstimuli.com) for official terms.
+- Goeleven, E., De Raedt, R., Leyman, L., & Verschuere, B. 2008  
+  *The Karolinska Directed Emotional Faces  A validation study*  Cognition & Emotion, 22(6), 1094 1118  
+  [DOI 10.1080/02699930701626582](https://doi.org/10.1080/02699930701626582)
 
 ---
 
+## 🪪 Lisans
+
+Bu proje [MIT License](./LICENSE) kapsamında yayımlanmıştır.  
+KDEF görsellerinin kullanımı akademik ve ticari olmayan lisansa tabidir. Resmi koşullar için [facialstimuli.com](http://www.facialstimuli.com) ile iletişime geçilmelidir.
